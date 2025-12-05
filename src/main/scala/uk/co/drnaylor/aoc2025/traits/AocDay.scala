@@ -3,18 +3,30 @@ package uk.co.drnaylor.aoc2025.traits
 import cats.Show
 
 import scala.io.Source
+import scala.util.Using
 
 trait AocDay[P] {
 
   val day: Int
 
-  final def runDay(): Unit = {
+  final def runDay(onlyFirstPart: Boolean = false): Unit = {
     val filename = f"day$day%02d.txt"
     println(f"Running Day $day%02d")
     println("----")
-    val parsedFile = parse(Source.fromResource(filename))
-    println(f"Part 1: ${part1(parsedFile)}")
-    println(f"Part 2: ${part2(parsedFile)}")
+
+    Using(Source.fromResource(filename))(parse).map {
+      parsedFile =>
+        println(f"Part 1: ${part1(parsedFile)}")
+        if (!onlyFirstPart) {
+          println(f"Part 2: ${part2(parsedFile)}")
+        }
+    }.recover {
+      err =>
+        println(s"Error running day: ${err.getMessage}")
+        err.printStackTrace()
+    }
+    println("----")
+
   }
 
   type P1: Show
