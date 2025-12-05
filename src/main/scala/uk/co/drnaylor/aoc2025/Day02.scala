@@ -21,6 +21,9 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
     source.getLines().next().split(",").map(parseIdRange).toList
   }
 
+  def checkForRepeat(inputString: String)(chunkSize: Int): Boolean =
+    inputString.grouped(chunkSize).distinct.size == 1
+
   // Part 1
 
   /**
@@ -29,9 +32,7 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
    * @param value The value to check
    * @return true if so
    */
-  def hasRepeat(value: Long): Boolean = {
-    def checkForRepeat(inputString: String)(chunkSize: Int): Boolean =
-      inputString.grouped(chunkSize).distinct.size == 1
+  def hasSingleRepeat(value: Long): Boolean = {
 
     val checkString = value.toString
     val count = checkString.length
@@ -40,8 +41,19 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
   }
 
   override def part1(parsed: List[NumericRange.Inclusive[Long]]): Long = {
-    parsed.flatMap(_.iterator).filter(hasRepeat).sum
+    parsed.flatMap(_.iterator).filter(hasSingleRepeat).sum
   }
 
-  override def part2(parsed: List[NumericRange.Inclusive[Long]]): Long = ???
+  // Part 2
+
+  def hasAnyRepeat(value: Long): Boolean = {
+    val checkString = value.toString
+    val count = checkString.length
+
+    (1 to (count / 2)).filter(count % _ == 0).exists(checkForRepeat(checkString))
+  }
+
+  override def part2(parsed: List[NumericRange.Inclusive[Long]]): Long = {
+    parsed.flatMap(_.iterator).filter(hasAnyRepeat).sum
+  }
 }
