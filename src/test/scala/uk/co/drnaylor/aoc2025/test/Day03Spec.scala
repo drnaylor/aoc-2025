@@ -52,6 +52,21 @@ class Day03Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
 
   "Part 2" - {
 
+    val joltages = Table(
+      ("row", "joltage"),
+      parsed.zip(
+        List(987654321111L, 811111111119L, 434234234278L, 888911112111L)
+      ) *
+    )
+
+    "returns the appropriate joltage for a row" in forAll(joltages) { (row, joltage) =>
+      Day03.processRowFor12(row) mustBe joltage
+    }
+
+    "returns the value expected by the AoC example" in {
+      Day03.part2(parsed) mustBe 3121910778619L
+    }
+
   }
 
 
