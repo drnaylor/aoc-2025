@@ -4,10 +4,11 @@ import cats.effect.{ExitCode, IO, IOApp}
 
 object Aoc2025 extends IOApp {
 
-  val days = List(
+  private val days = List(
     IO(Day01.runDay()),
     IO(Day02.runDay()),
-    IO(Day03.runDay())
+    IO(Day03.runDay()),
+    IO(Day04.runDay())
   )
 
   def run(args: List[String]): IO[ExitCode] = {
