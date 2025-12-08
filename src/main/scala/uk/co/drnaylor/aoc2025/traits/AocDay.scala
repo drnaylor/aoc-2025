@@ -37,5 +37,5 @@ trait AocDay[P] {
   def part1(parsed: P): P1
 
   def part2(parsed: P): P2
-
+  
 }
