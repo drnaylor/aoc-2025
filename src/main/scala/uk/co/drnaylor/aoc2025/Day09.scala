@@ -11,20 +11,6 @@ object Day09 extends AocDay[Seq[Coord2d]] {
 
   case class Coord2d(x: Long, y: Long) {
     def areaWith(that: Coord2d): Long = (abs(this.x - that.x) + 1) * (abs(this.y - that.y) + 1)
-    def getTilesBetween(that: Coord2d): Seq[Coord2d] = {
-      if (this.x == that.x) {
-        // all the y's
-        (min(this.y, that.y) to max(this.y, that.y))
-          .drop(1)
-          .dropRight(1)
-          .map(y1 => Coord2d(this.x, y1))
-      } else {
-        (min(this.x, that.x) to max(this.x, that.x))
-          .drop(1)
-          .dropRight(1)
-          .map(x1 => Coord2d(x1, this.y))
-      }
-    }
   }
 
   override val day: Int = 9
