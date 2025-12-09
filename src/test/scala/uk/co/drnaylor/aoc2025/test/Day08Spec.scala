@@ -94,7 +94,7 @@ class Day08Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
   "Part 2" - {
 
     "can calculate AoC example" in {
-      
+      Day08.part2(parsed1, 10) mustBe 25272
     }
 
   }
