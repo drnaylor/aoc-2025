@@ -23,7 +23,7 @@ class Day01Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       |L82
       |""".stripMargin
 
-  val exampleParsed: List[Int] = List(
+  val exampleParsed: Seq[Int] = Seq(
     -68,
     -30,
     48,

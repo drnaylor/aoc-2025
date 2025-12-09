@@ -34,8 +34,8 @@ class Day08Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       |""".stripMargin
 
 
-  val parsed1: List[Point] =
-    List(
+  val parsed1: Seq[Point] =
+    Seq(
       Point(162,817,812),
       Point(57,618,57),
       Point(906,360,560),

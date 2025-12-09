@@ -5,7 +5,7 @@ import uk.co.drnaylor.aoc2025.traits.AocDay
 import scala.collection.immutable.NumericRange
 import scala.io.Source
 
-object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
+object Day02 extends AocDay[Seq[NumericRange.Inclusive[Long]]] {
 
   override type P1 = Long
   override type P2 = Long
@@ -17,8 +17,8 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
     split.next() to split.next()
   }
 
-  override def parse(source: Source): List[NumericRange.Inclusive[Long]] = {
-    source.getLines().next().split(",").map(parseIdRange).toList
+  override def parse(source: Source): Seq[NumericRange.Inclusive[Long]] = {
+    source.getLines().next().split(",").map(parseIdRange).toSeq
   }
 
   def checkForRepeat(inputString: String)(chunkSize: Int): Boolean =
@@ -40,7 +40,7 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
     if count % 2 == 0 then checkForRepeat(checkString)(count / 2) else false
   }
 
-  override def part1(parsed: List[NumericRange.Inclusive[Long]]): Long = {
+  override def part1(parsed: Seq[NumericRange.Inclusive[Long]]): Long = {
     parsed.flatMap(_.iterator).filter(hasSingleRepeat).sum
   }
 
@@ -53,7 +53,7 @@ object Day02 extends AocDay[List[NumericRange.Inclusive[Long]]] {
     (1 to (count / 2)).filter(count % _ == 0).exists(checkForRepeat(checkString))
   }
 
-  override def part2(parsed: List[NumericRange.Inclusive[Long]]): Long = {
+  override def part2(parsed: Seq[NumericRange.Inclusive[Long]]): Long = {
     parsed.flatMap(_.iterator).filter(hasAnyRepeat).sum
   }
 }

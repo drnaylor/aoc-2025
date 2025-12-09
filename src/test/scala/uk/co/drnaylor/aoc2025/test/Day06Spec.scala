@@ -52,7 +52,7 @@ class Day06Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
     }
 
     "can calculate AoC example" in {
-      Day06.completeOperation(parsed1) mustBe 3263827
+      Day06.completeOperation(parsed2) mustBe 3263827
     }
   }
 

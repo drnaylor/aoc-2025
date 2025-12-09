@@ -16,11 +16,11 @@ class Day03Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       |818181911112111
       |""".stripMargin
 
-  val parsed: List[List[Int]] = List(
-    List(9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1),
-    List(8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9),
-    List(2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 7, 8),
-    List(8, 1, 8, 1, 8, 1, 9, 1, 1, 1, 1, 2, 1, 1, 1)
+  val parsed: Seq[Seq[Int]] = Seq(
+    Seq(9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1),
+    Seq(8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9),
+    Seq(2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 7, 8),
+    Seq(8, 1, 8, 1, 8, 1, 9, 1, 1, 1, 1, 2, 1, 1, 1)
   )
 
   "Parser" - {
@@ -36,7 +36,7 @@ class Day03Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
     val joltages = Table(
       ("row", "joltage"),
       parsed.zip(
-        List(98, 89, 78, 92)
+        Seq(98, 89, 78, 92)
       )*
     )
 
@@ -55,7 +55,7 @@ class Day03Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
     val joltages = Table(
       ("row", "joltage"),
       parsed.zip(
-        List(987654321111L, 811111111119L, 434234234278L, 888911112111L)
+        Seq(987654321111L, 811111111119L, 434234234278L, 888911112111L)
       ) *
     )
 

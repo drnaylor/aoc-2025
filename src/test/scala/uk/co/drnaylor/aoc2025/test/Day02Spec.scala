@@ -15,26 +15,26 @@ class Day02Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
     """11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124
       |""".stripMargin
 
-  val rangeList: List[(NumericRange.Inclusive[Long], List[Long], List[Long])] = List(
-    (11L to 22L, List(11, 22), List(11, 22)),
-    (95L to 115L, List(99), List(99, 111)),
-    (998L to 1012L, List(1010), List(999, 1010)),
-    (1188511880L to 1188511890L, List(1188511885), List(1188511885)),
-    (222220L to 222224L, List(222222), List(222222)),
-    (1698522L to 1698528L, List(), List()),
-    (446443L to 446449L, List(446446), List(446446)),
-    (38593856L to 38593862L, List(38593859), List(38593859)),
-    (565653L to 565659L, List(), List(565656)),
-    (824824821L to 824824827L, List(), List(824824824)),
-    (2121212118L to 2121212124L, List(), List(2121212121))
+  val rangeList: Seq[(NumericRange.Inclusive[Long], Seq[Long], Seq[Long])] = Seq(
+    (11L to 22L, Seq(11, 22), Seq(11, 22)),
+    (95L to 115L, Seq(99), Seq(99, 111)),
+    (998L to 1012L, Seq(1010), Seq(999, 1010)),
+    (1188511880L to 1188511890L, Seq(1188511885), Seq(1188511885)),
+    (222220L to 222224L, Seq(222222), Seq(222222)),
+    (1698522L to 1698528L, Seq(), Seq()),
+    (446443L to 446449L, Seq(446446), Seq(446446)),
+    (38593856L to 38593862L, Seq(38593859), Seq(38593859)),
+    (565653L to 565659L, Seq(), Seq(565656)),
+    (824824821L to 824824827L, Seq(), Seq(824824824)),
+    (2121212118L to 2121212124L, Seq(), Seq(2121212121))
   )
 
-  val rangeTable: TableFor2[NumericRange.Inclusive[Long], List[Long]] = Table(
+  val rangeTable: TableFor2[NumericRange.Inclusive[Long], Seq[Long]] = Table(
     ("ranges", "invalid ids"),
     rangeList.map{ case (first, second, _) => (first, second) }*
   )
 
-  val rangeTablePart2: TableFor2[NumericRange.Inclusive[Long], List[Long]] = Table(
+  val rangeTablePart2: TableFor2[NumericRange.Inclusive[Long], Seq[Long]] = Table(
     ("ranges", "invalid ids"),
     rangeList.map{ case (first, _, second) => (first, second) }*
   )

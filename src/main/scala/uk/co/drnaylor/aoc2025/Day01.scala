@@ -7,12 +7,12 @@ import uk.co.drnaylor.aoc2025.traits.AocDay
 import scala.io.Source
 import scala.math.abs
 
-object Day01 extends AocDay[List[Int]] {
+object Day01 extends AocDay[Seq[Int]] {
 
   override val day: Int = 1
 
-  override def parse(source: Source): List[Int] = {
-      source.getLines().flatMap(parseValue).toList
+  override def parse(source: Source): Seq[Int] = {
+      source.getLines().flatMap(parseValue).toSeq
     }
 
   def parseValue(input: String): Option[Int] =
@@ -24,7 +24,7 @@ object Day01 extends AocDay[List[Int]] {
 
   override type P1 = Int
 
-  override def part1(parsed: List[Int]): Int = {
+  override def part1(parsed: Seq[Int]): Int = {
     parsed.scanLeft(50) {
       (acc, curr) => acc + curr
     }.count(_ % 100 == 0)
@@ -61,7 +61,7 @@ object Day01 extends AocDay[List[Int]] {
     }
   }
 
-  override def part2(parsed: List[Int]): Int =
+  override def part2(parsed: Seq[Int]): Int =
     parsed.foldLeft(State(50, 0)) {
       (state: State, next: Int) => state.turnDial(next)
     }.countPastZero

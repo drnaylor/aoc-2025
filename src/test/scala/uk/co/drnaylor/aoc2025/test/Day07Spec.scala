@@ -29,24 +29,24 @@ class Day07Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       |""".stripMargin
 
 
-  val parsed1: List[List[Int]] =
-    List(
-      List(7),
-      List.empty,
-      List(7),
-      List.empty,
-      List(6, 8),
-      List.empty,
-      List(5, 7, 9),
-      List.empty,
-      List(4, 6, 10),
-      List.empty,
-      List(3, 5, 9, 11),
-      List.empty,
-      List(2, 6, 12),
-      List.empty,
-      List(1, 3, 5, 7, 9, 13),
-      List.empty
+  val parsed1: Seq[Seq[Int]] =
+    Seq(
+      Seq(7),
+      Seq.empty,
+      Seq(7),
+      Seq.empty,
+      Seq(6, 8),
+      Seq.empty,
+      Seq(5, 7, 9),
+      Seq.empty,
+      Seq(4, 6, 10),
+      Seq.empty,
+      Seq(3, 5, 9, 11),
+      Seq.empty,
+      Seq(2, 6, 12),
+      Seq.empty,
+      Seq(1, 3, 5, 7, 9, 13),
+      Seq.empty
     )
 
   "Parser" - {
