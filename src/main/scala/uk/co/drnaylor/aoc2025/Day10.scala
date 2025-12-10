@@ -1,5 +1,7 @@
 package uk.co.drnaylor.aoc2025
 
+import com.google.ortools.Loader
+import com.google.ortools.sat.*
 import uk.co.drnaylor.aoc2025.Day09.Coord2d
 import uk.co.drnaylor.aoc2025.Day09.Lines.{XLine, YLine}
 import uk.co.drnaylor.aoc2025.Day10.MachineConfiguration
@@ -42,7 +44,7 @@ object Day10 extends AocDay[Seq[MachineConfiguration]] {
     }.toSeq
 
 
-  private def processMachine1(machineConfiguration: MachineConfiguration): Int = machineConfiguration match {
+  def processMachine(machineConfiguration: MachineConfiguration): Int = machineConfiguration match {
     case MachineConfiguration(machine, buttons, _) =>
       // we don't need to press any buttons more than once, using a "breadth first" approach
       // order doesn't matter due to the binary nature of the solution, we just need to
@@ -70,7 +72,48 @@ object Day10 extends AocDay[Seq[MachineConfiguration]] {
 
 
   override def part1(parsed: Seq[MachineConfiguration]): Int =
-    parsed.map(processMachine1).sum
+    parsed.map(processMachine).sum
 
-  override def part2(parsed: Seq[MachineConfiguration]): Long = ???
+
+  // This is a linear algebra problem.
+  def processJoltage(machineConfiguration: MachineConfiguration): Long = machineConfiguration match {
+    case MachineConfiguration(_, buttons, joltages) =>
+      val sizeOfSystem = joltages.size
+      val model = CpModel()
+
+      // times a button pressed is the variable to minimise
+      val buttonVariables: Seq[(Seq[Int], IntVar)] = buttons.zipWithIndex.map((button, value) => (button, model.newIntVar(0, Int.MaxValue, s"x$value")))
+
+      // the constraints are constraining button presses to joltages, so we loop over the joltages
+      // and ensure the sum of button presses that affects that joltage is constrained to the
+      // constant in the joltages.
+      //
+      // So, we loop over the joltages (using the index to help match up with the buttons)
+      // get the variables and constrain the sum to the required presses
+
+      val constraints = joltages.zipWithIndex.map { (joltage, idx) =>
+         val expression = buttonVariables.filter( { case (values, _) =>
+            values.contains(idx)
+          })
+          .map(_._2)
+          .foldLeft(LinearExpr.newBuilder()) { (expr, variable) =>
+            expr.add(variable)
+            expr
+          }
+          .build()
+
+         model.addEquality(expression, joltage)
+      }
+
+      val arrayVariables = buttonVariables.map(_._2.build()).toArray[LinearArgument]
+      model.minimize(LinearExpr.sum(arrayVariables))
+
+      val solver = CpSolver()
+      solver.solve(model)
+      arrayVariables.map(solver.value).sum
+  }
+
+  override def part2(parsed: Seq[MachineConfiguration]): Long =
+    Loader.loadNativeLibraries()
+    parsed.map(processJoltage).sum
 }
