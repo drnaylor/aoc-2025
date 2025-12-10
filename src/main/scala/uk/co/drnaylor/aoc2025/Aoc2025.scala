@@ -13,7 +13,8 @@ object Aoc2025 extends IOApp {
     IO(Day06.runDay()),
     IO(Day07.runDay()),
     IO(Day08.runDay()),
-    IO(Day09.runDay())
+    IO(Day09.runDay()),
+    IO(Day10.runDay(onlyFirstPart = true)),
   )
 
   def run(args: List[String]): IO[ExitCode] = {
