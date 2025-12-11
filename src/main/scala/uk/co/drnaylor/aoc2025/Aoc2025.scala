@@ -15,6 +15,7 @@ object Aoc2025 extends IOApp {
     IO(Day08.runDay()),
     IO(Day09.runDay()),
     IO(Day10.runDay()),
+    IO(Day11.runDay()),
   )
 
   def run(args: List[String]): IO[ExitCode] = {
