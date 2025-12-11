@@ -1,6 +1,5 @@
 package uk.co.drnaylor.aoc2025.test
 
-import com.google.ortools.Loader
 import org.scalatest.exceptions.TestFailedException
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
@@ -107,18 +106,22 @@ class Day10Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       (parsed1.last, 11),
     )
 
-    "loading native libraries" - {
-      Loader.loadNativeLibraries()
-
-      "can calculate minimum presses" in forAll(expectedPresses) { (input, expected) =>
-        Day10.processJoltage(input) mustBe expected
-      }
+    "can calculate minimum presses with OR-Tools" in forAll(expectedPresses) { (input, expected) =>
+      Day10.processJoltageOR(input) mustBe expected
     }
 
-    "can calculate AoC example" in {
-      Day10.part2(parsed1) mustBe 33
+    "can calculate minimum presses with Z3" in forAll(expectedPresses) { (input, expected) =>
+      Day10.processJoltageZ3(input) mustBe expected
     }
 
+    "can calculate AoC example using Z3" in {
+      Day10.part2Z3(parsed1) mustBe 33
+    }
+
+    "can calculate AoC example using OR-Tools" in {
+      Day10.part2OR(parsed1) mustBe 33
+    }
+    
   }
 
 
