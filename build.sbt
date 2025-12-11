@@ -12,7 +12,8 @@ libraryDependencies ++= List(
   "org.typelevel" %% "cats-effect" % "3.6.3",
   "org.scalactic" %% "scalactic" % "3.2.19",
   "org.scala-graph" %% "graph-core" % "2.0.3",
-  "com.google.ortools" % "ortools-java" % "9.12.4544",
+  "com.google.ortools" % "ortools-java" % "9.14.6206",
+  "tools.aqua" % "z3-turnkey" % "4.14.1",
   "org.scalatest" %% "scalatest" % "3.2.19" % "test",
   "org.scalatestplus" %% "scalacheck-1-18" % "3.2.19.0" % "test"
 )

@@ -1,7 +1,5 @@
 package uk.co.drnaylor.aoc2025.test
 
-import com.google.ortools.Loader
-import org.scalatest.exceptions.TestFailedException
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
