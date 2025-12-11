@@ -92,9 +92,9 @@ object Day11 extends AocDay[Map[String, Set[String]]] {
         .map { (node, leaves) =>
           // find all inputs for this node
           val inPaths = inputs.flatMap {
-            case (_, (deps, weight)) if deps.contains(node) => Some(weight.visitNode(node))
+            case (_, (deps, weight)) if deps.contains(node) => Some(weight)
             case _ => None
-          }.reduceLeft((l, r) => l.combine(r))
+          }.reduceLeft((l, r) => l.combine(r)).visitNode(node)
 
           (node, (leaves, inPaths)) // get the sum of the nodes above it to get how many paths traverse down
         }
