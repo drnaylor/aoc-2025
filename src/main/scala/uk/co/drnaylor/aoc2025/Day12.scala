@@ -42,7 +42,10 @@ object Day12 extends AocDay[Parsed] {
             }.toSet
           }.map(Present.apply).toIndexedSeq,
           bins.map { case binsLine(width, height, values) =>
-            Bin(width.toInt, height.toInt, values.trim.split(" ").zipWithIndex.map((value, idx) => (idx, value.toInt)).toMap)
+            Bin(width.toInt, height.toInt, values.trim.split(" ").zipWithIndex.flatMap {
+              case ("0", _) => None
+              case (value, idx) => Some((idx, value.toInt))
+            }.toMap)
           }
         )
       case _ => throw IllegalStateException("Nope")
