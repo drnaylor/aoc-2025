@@ -1,6 +1,7 @@
 package uk.co.drnaylor.aoc2025
 
 import uk.co.drnaylor.aoc2025.Day12.Parsed
+import uk.co.drnaylor.aoc2025.Day12.Tristate.{False, True, Unknown}
 import uk.co.drnaylor.aoc2025.traits.AocDay
 
 import scala.io.Source
@@ -52,7 +53,27 @@ object Day12 extends AocDay[Parsed] {
     }
   }
 
-  override def part1(parsed: Parsed): Long = ???
+  enum Tristate {
+    case True
+    case False
+    case Unknown
+  }
+
+  def checkGrid(presents: IndexedSeq[Present])(binToCheck: Bin): Tristate = {
+    val presentMap: Map[Present, Int] = binToCheck.requiredPresents.map((presentId, count) => (presents(presentId), count))
+    val area = binToCheck.width * binToCheck.height
+
+    // Simple case, if we treat all presents as 3x3 squares, would they all fit?
+    if (9 * presentMap.values.sum) <= area then True
+    // If the sum of the areas of the presents is bigger than the area available?
+    else if presentMap.map((present, count) => present.shape.size * count).sum > area then False
+    else Unknown // TODO: check packing if we need it
+  }
+
+  override def part1(parsed: Parsed): Long = {
+    val checkFn = checkGrid(parsed.presents)
+    parsed.bins.map(checkFn).count(_ == True)
+  }
 
   override def part2(parsed: Parsed): Long = ???
 }

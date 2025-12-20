@@ -4,7 +4,7 @@ import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import uk.co.drnaylor.aoc2025.Day12
-import uk.co.drnaylor.aoc2025.Day12.{Bin, Parsed, Present}
+import uk.co.drnaylor.aoc2025.Day12.{Bin, Parsed, Present, Tristate}
 
 import scala.io.Source
 
@@ -57,13 +57,26 @@ class Day12Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
       Present(Set((0, 0), (0, 1), (0, 2), (1, 1), (2, 0), (2, 1), (2, 2)))
     ),
     Seq(
-      Bin(4, 4, Map.from(Seq((4, 2)))),
-      Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 2), (5, 2)))),
-      Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 3), (5, 2)))),
+      Bin(4, 4, Map.from(Seq((4, 2)))), // true
+      Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 2), (5, 2)))), // true
+      Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 3), (5, 2)))), // false
     )
   )
 
   "Parser" - {
+
+    val binCheck = Table(
+      ("area", "fits"),
+      (Bin(4, 4, Map.from(Seq((4, 2)))), Tristate.Unknown),
+      (Bin(4, 4, Map.from(Seq((4, 3)))), Tristate.False),
+      (Bin(6, 6, Map.from(Seq((4, 3)))), Tristate.True),
+      (Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 2), (5, 2)))), Tristate.True),
+      (Bin(12, 5, Map.from(Seq((0, 1), (2, 1), (4, 3), (5, 2)))), Tristate.Unknown),
+    )
+
+    "checkGrid returns whether packing was a success" in forAll(binCheck) { (bin, expected) =>
+      Day12.checkGrid(parsed1.presents)(bin) mustBe expected
+    }
 
     "can parse the part 1 AoC example" in {
       Day12.parse(Source.fromString(example)) mustBe parsed1
@@ -74,7 +87,7 @@ class Day12Spec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks 
   "Part 1" - {
 
     "can calculate AoC example" in {
-      // Day12.part1(parsed1) mustBe 2
+      Day12.part1(parsed1) mustBe 2
     }
 
   }
