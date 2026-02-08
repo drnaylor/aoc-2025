@@ -1,6 +1,8 @@
 # Advent of Code 2025
 
-The 2025 edition of Advent of Code, written in Scala 3.7 this year! Uses sbt 1.11 as the build tool.
+The 2025 edition of Advent of Code, written in Scala 3.7 this year! Uses sbt 1.12 as the build tool.
+
+> This has been updated to use Scala 3.8 to allow future runs to work against later versions of the JVM.
 
 **Puzzle inputs are not included**.[^1] Create the `src/main/resources` directory and add your inputs with the filename `day[nn].txt`, replacing `[nn]` with the two digit day number (so, the input for day 1 is `day01.txt`).
 
